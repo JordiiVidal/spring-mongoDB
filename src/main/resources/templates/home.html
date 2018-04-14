@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<head>
+    <meta charset="UTF-8"/>
+    <title>MongoApp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-theme.css}"/>
+    <script th:src="@{/scripts/jquery-3.2.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{/js/main.js}" ></script>
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menuitems" aria-expanded="false">
+                    <span class="sr-only">Toggle Nav</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">MongoAPP</a>
+            </div>
+            <div class="collapse navbar-collapse" id="menuitems">
+                <ul class="nav navbar-nav">
+                    <li><a href="#">Equipo</a></li>
+                    <li><a href="#">Jugadores</a></li>
+                    <li><a href="#">Entreadores</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <a th:href="@{create}" class="btn btn-success">Create</a>
+        <div class="card">
+            <div class="card-block">
+                <table class="table tabe-hover">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Localidad</th>
+                            <th>Socios</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                       <tr th:each="team :${data.content}">
+                            <td th:text="${team.nombre}"></td>
+                            <td th:text="${team.localidad}"></td>
+                            <td th:text="${team.socios}"></td>
+                            <td><a th:href="@{update/(id=${team.id})}" class="btn btn-primary" id="eBtn"><div class="glyphicon glyphicon-pencil"></div></a></td>
+                           <td><a th:href="@{delete/(id=${team.id})}" class="btn btn-danger" id="eBtn2"><div class="glyphicon glyphicon-trash"></div></a></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <hr/>
+                <ul class="nav nav-pills">
+                    <li class="nav-item" th:each="i : ${#numbers.sequence(0,data.totalPages-1)}">
+                        <a th:href="@{/(page=${i})}" th:text="${i}" class="nav-link" th:classappend="${currentPage}==${i}?'active':'disabled'"></a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+<script th:src="@{/scripts/jquery-3.2.1.min.js}"></script>
+<script th:src="@{/scripts/bootstrap.min.js}"></script>
+</body>
+</html>
